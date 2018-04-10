@@ -22,7 +22,8 @@ Plotly.d3.csv('data/normalized_pnl.csv', (err, rows) => {
 
     const ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
         // return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [100 + b] : a.concat(a[i-1]*(1+b)), 100);
-        return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
+        // return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
+        return unpack(rows, k).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
     });
 
     const data = Object.keys(rows[0]).filter(k => k !== '').map((k, i) => {
