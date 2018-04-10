@@ -22,7 +22,7 @@ Plotly.d3.csv('data/normalized_pnl.csv', (err, rows) => {
 
     const ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
         // return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [100 + b] : a.concat(a[i-1]*(1+b)), 100);
-        return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [100 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
+        return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [100000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
     });
 
     const data = Object.keys(rows[0]).filter(k => k !== '').map((k, i) => {
@@ -43,12 +43,16 @@ Plotly.d3.csv('data/normalized_pnl.csv', (err, rows) => {
     });
 
     const layout = {
-        title: 'pnl',
+        title: 'PnL Normalized by L1-Norm',
         height: 0.95 * window.innerHeight,
         width: 0.95 * window.innerWidth,
+        xaxis: {
+            title: 'Time (Years)',
+        },
         yaxis: {
             type: 'log',
             autorange: true,
+            title: 'Normalized PnL ($)'
         }
     };
     Plotly.plot('graph', data, layout);
