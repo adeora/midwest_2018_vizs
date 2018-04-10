@@ -15,7 +15,7 @@ const colors = [
 
 const unpack = (rows, key) => rows.map(row => +row[key]);
 
-Plotly.d3.csv('/data/normalized_pnl.csv', (err, rows) => {
+Plotly.d3.csv('data/normalized_pnl.csv', (err, rows) => {
     // console.log(rows);
     // rows = rows.slice(0, 100);
     const timesteps = unpack(rows, '').map(v => v / 255);
