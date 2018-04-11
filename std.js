@@ -17,7 +17,7 @@ const unpack = (rows, key) => rows.map(row => +row[key]);
 const average = (arr) => arr.map(x => x / arr.length).reduce((a, v) => a + v);
 const squaredDiffs = (arr, avg) => arr.map(x => Math.pow(x - avg, 2)); 
 
-Plotly.d3.csv('data/normalized_pnl.csv', (err, rows) => {
+Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_pnl.csv', (err, rows) => {
     // console.log(rows);
     // rows = rows.slice(0, 100);
     const timesteps = unpack(rows, '').map(v => v / 255);
@@ -64,8 +64,8 @@ Plotly.d3.csv('data/normalized_pnl.csv', (err, rows) => {
             title: 'Time (Years)',
         },
         yaxis: {
-            // type: 'log',
-            // autorange: true,
+            type: 'log',
+            autorange: true,
             title: 'Inverse 50-Day Rolling Std'
         }
     };
