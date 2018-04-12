@@ -17,12 +17,15 @@ const unpack = (rows, key) => rows.map(row => +row[key]);
 const average = (arr) => arr.map(x => x / arr.length).reduce((a, v) => a + v);
 const squaredDiffs = (arr, avg) => arr.map(x => Math.pow(x - avg, 2)); 
 
+let timesteps;
+let ys;
+
 Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_pnl.csv', (err, rows) => {
     // console.log(rows);
     // rows = rows.slice(0, 100);
-    const timesteps = unpack(rows, '').map(v => v / 255);
+    timesteps = unpack(rows, '').map(v => v / 255);
 
-    const ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
+    ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
         const arr = unpack(rows, k);
         const stdevs = arr.map((y, i) => arr.slice((i > 50) ? i - 50 : 0, i + 1)).map((subarr, i) => {
             if (i < 50) {
@@ -70,7 +73,9 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_p
         }
     };
     Plotly.plot('graph', data, layout);
+});
 
+function startDisplay() {
     let index = 2;
     const interval = setInterval(() => {
         console.log(index);
@@ -88,6 +93,4 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_p
             y: new_traces,
         }, indices);
     }, 1);
-
-
-});
+}

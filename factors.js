@@ -21,13 +21,16 @@ const colors = [
     '#95a5a6'
 ];
 
+let ys;
+let timesteps;
+
 Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/factor_data_TEST_new.csv', (err, rows) => {
-    const timesteps = unpack(rows, 'timestep').map(v => v / 255);
+    timesteps = unpack(rows, 'timestep').map(v => v / 255);
     // iterate over the columns
 
     const keys = Object.keys(rows[0]).filter(k => k !== 'timestep' && k !== 'RAIN');
 
-    const ys = keys.map(k => unpack(rows, k));
+    ys = keys.map(k => unpack(rows, k).slice(50));
 
     // const data = Object.keys(rows[0]).filter(k => k !== 'timestep' && k !== 'RAIN').map((k, i) => {
     const data = keys.map((k, i) => {
@@ -142,6 +145,9 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/factor_data_
 
     // Plotly.newPlot('graph', data, layout);
     Plotly.plot('graph', data, layout);
+ });
+
+function startDisplay() {
     let index = 2;
     const interval = setInterval(() => {
         const  new_traces = ys.map(y => [y[index]]); 
@@ -154,4 +160,5 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/factor_data_
             y: new_traces,
         }, indices);
     }, 100);
-});
+
+}

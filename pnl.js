@@ -15,12 +15,15 @@ const colors = [
 
 const unpack = (rows, key) => rows.map(row => +row[key]);
 
+let timesteps;
+let ys;
+
 Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_pnl.csv', (err, rows) => {
     // console.log(rows);
     // rows = rows.slice(0, 100);
-    const timesteps = unpack(rows, '').map(v => v / 255);
+    timesteps = unpack(rows, '').map(v => v / 255);
 
-    const ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
+    ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
         // return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
         return unpack(rows, k).map(v => v * 10).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
     });
@@ -56,7 +59,9 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_p
         }
     };
     Plotly.plot('graph', data, layout);
+});
 
+function startDisplay() {
     let index = 2;
     const interval = setInterval(() => {
         console.log(index);
@@ -75,5 +80,4 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_p
         }, indices);
     }, 1);
 
-
-});
+}
