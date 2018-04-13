@@ -134,6 +134,7 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/factor_data_
         yaxis5: {
             domain: [0.40, 0.6],
             anchor: 'x5',
+            title: 'TEMP & SENTI'
         },
         title: 'Macro Factors',
         height: 0.95 * window.innerHeight,
