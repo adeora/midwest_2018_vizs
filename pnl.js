@@ -40,7 +40,7 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_p
             x: [timesteps[0], timesteps[1]],
             y: [y[0], y[1]],
             color: i % colors.length,
-            fill: 'tozeroy',
+            // fill: 'tozeroy',
         };
         return trace;
     });
@@ -78,6 +78,6 @@ function startDisplay() {
             x: xs,
             y: new_traces,
         }, indices);
-    }, 300);
+    }, 100);
 
 }
