@@ -159,6 +159,6 @@ function startDisplay() {
             x: xs,
             y: new_traces,
         }, indices);
-    }, 100);
+    }, 300);
 
 }
