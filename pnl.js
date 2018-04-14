@@ -25,7 +25,7 @@ Plotly.d3.csv('https://s3-us-west-2.amazonaws.com/public-stuff-abhi/normalized_p
 
     ys = Object.keys(rows[0]).filter(k => k !== '').map(k => {
         // return unpack(rows, k).map(v => v * 100).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
-        return unpack(rows, k).map(v => v * 10).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
+        return unpack(rows, k).map(v => v * 15).reduce((a,b,i) => i === 0 ? [1000000 + b] : a.concat(a[i-1] + (a[i-1]*b)), 100);
     });
 
     const data = Object.keys(rows[0]).filter(k => k !== '').map((k, i) => {
